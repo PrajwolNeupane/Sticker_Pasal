@@ -1,0 +1,1 @@
+export const StickerNepalURL = "https://stickersnepal.com"

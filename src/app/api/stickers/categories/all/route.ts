@@ -6,7 +6,7 @@ import { CategoriesType } from "@/app/const/interface";
 export async function GET(req: NextRequest) {
   try {
     const response = await request({
-      uri: "https://stickersnepal.com/",
+      uri: "https://stickersnepal.com/shop/all/",
       headers: {
         accept:
           "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -16,20 +16,21 @@ export async function GET(req: NextRequest) {
       gzip: true,
     });
     let $ = cherrio.load(response);
-    var catgories:Array<CategoriesType> = [];
-    $('div[class="text-center scroll-item"]')
+    var catgories: Array<CategoriesType> = [];
+    $('ul[class="list-unstyled text-muted pl-lg-4 font-weight-normal"]')
       .children()
-      .each((_, element) => {
-        const title = $(element)
-          .find('span[class="category-item-title"]')
-          .text()
-          .trim();
-        const image = $(element).find('img[class="img-fluid"]').attr("src");
-        if (title) {
-          catgories.push({
-            name: title,
-            image: `https://stickersnepal.com/${image}`,
-          });
+      .each((indx, element) => {
+        if (indx != 0) {
+          const title = $(element)
+            .find('a[class="reset-anchor"]')
+            .text()
+            .trim();
+          if (title) {
+            catgories.push({
+              name: title,
+              image: `https://stickersnepal.com/staticfiles/${title}.jpg`,
+            });
+          }
         }
       });
     return NextResponse.json({ catgories: catgories });
