@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
       });
 
       let $ = cherrio.load(response);
-      var products:Array<ProductsType> = [];
+      var products:Array<ProductsType> = [];            
 
       $(
         'div[class="col-lg-9 order-1 order-lg-2 mb-1 mb-lg-0"] > div[class="row"]'
@@ -51,9 +51,7 @@ export async function GET(req: NextRequest) {
           }
         });
       return NextResponse.json({
-        product: {
           products
-        },
       });
     } else {
       return NextResponse.json(

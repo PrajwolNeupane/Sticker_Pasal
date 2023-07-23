@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
           }
         }
       });
-    return NextResponse.json({ catgories: catgories });
+    return NextResponse.json(catgories );
   } catch (e: any) {
     console.log(e);
     return NextResponse.json(
