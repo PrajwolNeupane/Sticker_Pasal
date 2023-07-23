@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
           });
         }
       });
-    return NextResponse.json({ products: products });
+    return NextResponse.json(products);
   } catch (e: any) {
     console.log(e);
     return NextResponse.json(
