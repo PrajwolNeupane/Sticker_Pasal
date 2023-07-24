@@ -8,6 +8,8 @@ export async function GET(req: NextRequest) {
   try {
     const id = req.nextUrl.searchParams.get("id");
     const page = req.nextUrl.searchParams.get("page");
+    const limit = req.nextUrl.searchParams.get("limit");
+
     if (id) {
       const response = await request({
         uri: `https://stickersnepal.com/shop/${id}/?page=${page}`,
@@ -21,38 +23,65 @@ export async function GET(req: NextRequest) {
       });
 
       let $ = cherrio.load(response);
-      var products:Array<ProductsType> = [];            
+      var products: Array<ProductsType> = [];
+      if (!limit) {
+        $(
+          'div[class="col-lg-9 order-1 order-lg-2 mb-1 mb-lg-0"] > div[class="row"]'
+        )
+          .children()
+          .each((indx, element) => {
+            const name = $(element)
+              .find(
+                'h5[class="mb-0 product-name text-sm"] > a[class="reset-anchor"]'
+              )
+              .text()
+              .trim();
+            const price = $(element)
+              .find('p[class="small text-muted mb-2"]')
+              .text()
+              .trim();
+            const image = $(element).find('img[class="img-fluid"]').attr("src");
+            const id = $(element).find('a[class="d-block"]').attr("href");
 
-      $(
-        'div[class="col-lg-9 order-1 order-lg-2 mb-1 mb-lg-0"] > div[class="row"]'
-      )
-        .children()
-        .each((indx, element) => {
-          const name = $(element)
-            .find(
-              'h5[class="mb-0 product-name text-sm"] > a[class="reset-anchor"]'
-            )
-            .text()
-            .trim();
-          const price = $(element)
-            .find('p[class="small text-muted mb-2"]')
-            .text()
-            .trim();
-          const image = $(element).find('img[class="img-fluid"]').attr("src");
-          const id = $(element).find('a[class="d-block"]').attr("href");
+            if (id) {
+              products.push({
+                id: id,
+                name: name,
+                price: price,
+                image: `${StickerNepalURL}${image}`,
+              });
+            }
+          });
+      } else {
+        $(
+          'div[class="col-lg-9 order-1 order-lg-2 mb-1 mb-lg-0"] > div[class="row"]'
+        )
+          .children()
+          .each((indx, element) => {
+            const name = $(element)
+              .find(
+                'h5[class="mb-0 product-name text-sm"] > a[class="reset-anchor"]'
+              )
+              .text()
+              .trim();
+            const price = $(element)
+              .find('p[class="small text-muted mb-2"]')
+              .text()
+              .trim();
+            const image = $(element).find('img[class="img-fluid"]').attr("src");
+            const id = $(element).find('a[class="d-block"]').attr("href");
 
-          if (id) {
-            products.push({
-              id: id,
-              name: name,
-              price: price,
-              image: `${StickerNepalURL}${image}`,
-            });
-          }
-        });
-      return NextResponse.json(
-          products
-      );
+            if (id && indx < Number(limit)) {
+              products.push({
+                id: id,
+                name: name,
+                price: price,
+                image: `${StickerNepalURL}${image}`,
+              });
+            }
+          });
+      }
+      return NextResponse.json(products);
     } else {
       return NextResponse.json(
         { error: "No ID Provided" },
