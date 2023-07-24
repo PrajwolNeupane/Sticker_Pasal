@@ -50,9 +50,9 @@ export async function GET(req: NextRequest) {
             });
           }
         });
-      return NextResponse.json({
+      return NextResponse.json(
           products
-      });
+      );
     } else {
       return NextResponse.json(
         { error: "No ID Provided" },
