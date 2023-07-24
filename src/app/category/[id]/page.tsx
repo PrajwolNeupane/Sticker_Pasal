@@ -7,6 +7,7 @@ interface PageProps {
     params: {
         id: string;
     };
+    searchParams:any
 }
 export async function getCategoryData() {
     try {
@@ -18,9 +19,9 @@ export async function getCategoryData() {
         console.log(e);
     }
 }
-export async function getCategoryProducts(id: string) {
+export async function getCategoryProducts(id: string,page:string) {
     try {
-        const response = await fetch(`http://localhost:3000/api/stickers/categories?id=${id}&page=1`, {
+        const response = await fetch(`http://localhost:3000/api/stickers/categories?id=${id}&page=${page}`, {
             cache: 'no-cache'
         })
         return response.json();
@@ -30,10 +31,12 @@ export async function getCategoryProducts(id: string) {
 }
 
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params,searchParams }: PageProps) {
 
+
+    const page = searchParams.page;
     const categoryData: Array<CategoriesType> = await getCategoryData();
-    const categoryProducts: Array<ProductsType> = await getCategoryProducts(params.id);
+    const categoryProducts: Array<ProductsType> = await getCategoryProducts(params.id,page);
 
     return (
         <div className="w-100 px-5 bg-body-tertiary">
@@ -47,7 +50,7 @@ export default async function Page({ params }: PageProps) {
                     <h1 className="fs-4 fw-bolder text-dark">Categories</h1>
                     {
                         categoryData?.map((curr: CategoriesType, indx: number) => (
-                            <Link href={`/category/${curr.name}`} className="fs-5 text-dark text-decoration-none">{curr?.name}</Link>
+                            <Link href={`/category/${curr.name}?page=1`} className="fs-5 text-dark text-decoration-none" key={indx}>{curr?.name}</Link>
                         ))
                     }
                 </div>
@@ -65,7 +68,21 @@ export default async function Page({ params }: PageProps) {
                             ))
                         }
                     </div>
-                    <h4 className="fs-3" style={{ fontWeight: "400",marginLeft:"100%",translate:"100% 0px" }}>{params.id.toUpperCase()}</h4>
+                    <div className="d-flex justify-content-end" style={{ width: "95%" }}>
+                        <div className="d-flex align-items-center gap-3">
+                            <Link href={page > 1 ? `?page=${Number(page) - 1}` : ''}>
+                                <span className="material-symbols-outlined text-dark" style={{ cursor: "pointer" }} >
+                                    arrow_back_ios
+                                </span>
+                            </Link>
+                            <h3 className="fs-5" style={{ marginTop: "5px" }}>{page}</h3>
+                            <Link href={`?page=${Number(page) + 1}`}>
+                                <span className="material-symbols-outlined text-dark ml-5" style={{ cursor: "pointer", marginLeft: "5px" }}>
+                                    arrow_forward_ios
+                                </span>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

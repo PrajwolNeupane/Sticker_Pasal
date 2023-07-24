@@ -39,7 +39,7 @@ export default async function Home() {
           <h1 className="fs-4 fw-bolder text-dark">Categories</h1>
           {
             categoryData?.map((curr: CategoriesType, indx: number) => (
-              <Link href={`/category/${curr.name}`} className="fs-5 text-dark text-decoration-none">{curr?.name}</Link>
+              <Link href={`/category/${curr.name}?page=1`} className="fs-5 text-dark text-decoration-none">{curr?.name}</Link>
             ))
           }
         </div>
