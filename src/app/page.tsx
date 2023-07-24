@@ -50,7 +50,7 @@ export default async function Home() {
             {
               productData?.map((curr: ProductsType, indx: number) => (
                 <div className="d-flex flex-column align-items-center bg-body-secondary p-2 mt-4" key={indx}>
-                  <Link href={`/product/${curr?.id}`} className="text-decoration-none"> <Image alt={curr?.name} width={'200'} height={'200'} src={curr?.image} /></Link>
+                  <Link href={`${curr?.id}`} className="text-decoration-none"> <Image alt={curr?.name} width={'200'} height={'200'} src={curr?.image} /></Link>
                   <AddToCart id={curr?.id} />
                   <Link href={`/product/${curr?.id}`} className="text-decoration-none"><h2 className="fs-6 text-dark lh-1" style={{ fontWeight: "700" }}>{curr?.name}</h2> </Link>
                   <h4 className="fs-6 text-secondary lh-1" style={{ fontWeight: "500" }}>{curr?.price}</h4>
