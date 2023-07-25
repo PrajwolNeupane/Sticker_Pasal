@@ -1,3 +1,15 @@
+export interface SignUpDataType {
+  name:string,
+  email:string,
+  password:string,
+  phonenumber:string
+}
+
+export interface LogInDataType {
+  email:string,
+  password:string
+}
+
 export interface ProductsType {
   id: string;
   name: string;
