@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import 'bootstrap/dist/css/bootstrap.css'
-import NavBar from './components/NavBar'
 
 
 export const metadata: Metadata = {
@@ -20,7 +19,6 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
       </head>
       <body>
-        <NavBar />
         {children}
       </body>
     </html>

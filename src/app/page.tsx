@@ -3,12 +3,11 @@ import { CategoriesType, ProductsType } from "./const/interface";
 import Header from "./components/Header/Header";
 import Image from "next/image";
 import AddToCart from "./components/AddToCart";
+import NavLayout from "./components/NavLayout";
 
 export async function getCategoryData() {
   try {
-    const response = await fetch("http://localhost:3000/api/stickers/categories/all", {
-      cache: 'no-cache'
-    })
+    const response = await fetch("http://localhost:3000/api/stickers/categories/all")
     return response.json();
   } catch (e) {
     console.log(e);
@@ -17,9 +16,7 @@ export async function getCategoryData() {
 
 export async function getProductsData() {
   try {
-    const response = await fetch("http://localhost:3000/api/stickers/products/all", {
-      cache: 'no-cache'
-    })
+    const response = await fetch("http://localhost:3000/api/stickers/products/all")
     return response.json();
   } catch (e) {
     console.log(e);
@@ -32,7 +29,7 @@ export default async function Home() {
   const productData: Array<ProductsType> = await getProductsData();
 
   return (
-    <>
+    <NavLayout>
       <Header />
       <div className="d-flex">
         <div className="bg-body-tertiary w-25 d-flex flex-column gap-1 align-items-center overflow-y-auto" style={{ height: "88vh", padding: "20px 0px", position: "sticky", top: "74px" }}>
@@ -60,7 +57,7 @@ export default async function Home() {
           </div>
         </div>
       </div>
-    </>
+    </NavLayout >
 
   )
 }
