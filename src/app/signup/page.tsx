@@ -4,15 +4,18 @@ import Link from "next/link"
 import { useState } from "react";
 import { SignUpDataType } from "../const/interface";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 
 export default function Page() {
 
+    const router = useRouter();
     const [signUpData,setSignUpData] = useState<SignUpDataType>({name:"",password:"",email:"",phonenumber:""});
 
     const signUp = async () => {
         try{
             const response = await axios.post("http://localhost:3000/api/user/signup",{...signUpData});
+            router.push("/");
         }catch(e){
             console.log(e);
         }
