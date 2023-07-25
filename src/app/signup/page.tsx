@@ -11,11 +11,8 @@ export default function Page() {
     const [signUpData,setSignUpData] = useState<SignUpDataType>({name:"",password:"",email:"",phonenumber:""});
 
     const signUp = async () => {
-        console.log({...signUpData})
         try{
             const response = await axios.post("http://localhost:3000/api/user/signup",{...signUpData});
-            console.log(response.data);
-            alert('hi');
         }catch(e){
             console.log(e);
         }
@@ -32,13 +29,13 @@ export default function Page() {
                 <h2 className="text-dark" style={{ fontWeight: "700",fontSize:"40px" }}>Create a Account</h2>
                 <br />
                 <label>Name: </label>
-                <input placeholder="Joe Doe" name="name" type="text" onChange={(e)=>{setSignUpData({[e.target.name]:e.target.value,...signUpData})}}/>
+                <input placeholder="Joe Doe" name="name" type="text" onChange={(e)=>{setSignUpData({...signUpData,[e.target.name]:e.target.value})}}/>
                 <label>Email: </label>
-                <input placeholder="joedoe@gmail.com" name="email" type="email" onChange={(e)=>{setSignUpData({[e.target.name]:e.target.value,...signUpData})}}/>
+                <input placeholder="joedoe@gmail.com" name="email" type="email" onChange={(e)=>{setSignUpData({...signUpData,[e.target.name]:e.target.value})}}/>
                 <label>Phone Number: </label>
-                <input placeholder="1234567890" name="phonenumber" type="text" onChange={(e)=>{setSignUpData({[e.target.name]:e.target.value,...signUpData})}}/>
+                <input placeholder="1234567890" name="phonenumber" type="text" onChange={(e)=>{setSignUpData({...signUpData,[e.target.name]:e.target.value})}}/>
                 <label>Password: </label>
-                <input placeholder="********" name="password" type="password" onChange={(e)=>{setSignUpData({[e.target.name]:e.target.value,...signUpData})}}/>
+                <input placeholder="********" name="password" type="password" onChange={(e)=>{setSignUpData({...signUpData,[e.target.name]:e.target.value})}}/>
                 <br />
                 <button className="mt-3 mb-2 bg-dark text-white px-4 py-1" style={{ fontWeight: "400", border: "none" }} type="submit" >Create</button>
                 <Link href={'/login'} className="text-center text-primary text-decoration-none">Already have an accout? Log in</Link>
