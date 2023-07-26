@@ -1,5 +1,5 @@
 "use client"
-import { setCart } from "../cart/Features/cartSlice";
+import { addCart } from "../cart/Features/cartSlice";
 import { ProductsType } from "../const/interface";
 import { useAppDispatch, useAppSelector } from "../store";
 import axios from "axios";
@@ -15,10 +15,10 @@ const AddToCart: React.FC<AddToCartProps> = ({ product }) => {
   const addToCart = async() => {
     try {
       const response = await axios.post("http://localhost:3000/api/cart",{
-        cartItems:[{...product}]
+        cartItems:{...product}
       });
       alert('Added to Cart');
-      dispatch(setCart(product));
+      dispatch(addCart(product));
     } catch (e) {
       console.log(e);
     }

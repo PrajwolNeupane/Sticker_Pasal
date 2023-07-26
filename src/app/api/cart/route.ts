@@ -38,8 +38,14 @@ export async function POST(request: NextRequest) {
     var ownerId = getDataFromToken(request);
     var cart = await Cart.findOne({ ownerId: ownerId });
     if (!cart) {
-      cart = new Cart({ ownerId: ownerId, cartItems: cartItems });
+      cart = new Cart({ ownerId: ownerId, cartItems: [cartItems] });
       cart = await cart.save();
+    } else {
+      cart = await Cart.findOneAndUpdate(
+        { ownerId: ownerId },
+        { $push: { cartItems: {...cartItems} } },
+        { returnOriginal: false }
+      );
     }
 
     return NextResponse.json({
