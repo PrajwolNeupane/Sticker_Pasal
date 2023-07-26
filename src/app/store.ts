@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import AuthSlice from './components/NavBar/Features/authSlice';
 import { useDispatch, useSelector,TypedUseSelectorHook } from 'react-redux';
+import CartSlice from './cart/Features/cartSlice';
 
 export const store = configureStore({
     reducer:{
-        auth:AuthSlice
+        auth:AuthSlice,
+        cart:CartSlice
     }
 })
 export type AppDispatch = typeof store.dispatch;
