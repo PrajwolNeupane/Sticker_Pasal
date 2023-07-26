@@ -3,7 +3,7 @@ import { CategoriesType, ProductsType } from "./const/interface";
 import Header from "./components/Header/Header";
 import Image from "next/image";
 import AddToCart from "./components/AddToCart";
-import NavLayout from "./components/NavBar/NavLayout";
+import StateProviderLayout from "@/LayOut/StateProviderLayout";
 
 export async function getCategoryData() {
   try {
@@ -29,7 +29,7 @@ export default async function Home() {
   const productData: Array<ProductsType> = await getProductsData();
 
   return (
-    <NavLayout>
+    <StateProviderLayout>
       <Header />
       <div className="d-flex">
         <div className="bg-body-tertiary w-25 d-flex flex-column gap-1 align-items-center overflow-y-auto" style={{ height: "88vh", padding: "20px 0px", position: "sticky", top: "74px" }}>
@@ -48,7 +48,7 @@ export default async function Home() {
               productData?.map((curr: ProductsType, indx: number) => (
                 <div className="d-flex flex-column align-items-center bg-body-secondary p-2 mt-4" key={indx}>
                   <Link href={`${curr?.id}`} className="text-decoration-none"> <Image alt={curr?.name} width={'200'} height={'200'} src={curr?.image} /></Link>
-                  <AddToCart product={curr}/>
+                  <AddToCart product={curr} />
                   <Link href={`/product/${curr?.id}`} className="text-decoration-none"><h2 className="fs-6 text-dark lh-1" style={{ fontWeight: "700" }}>{curr?.name}</h2> </Link>
                   <h4 className="fs-6 text-secondary lh-1" style={{ fontWeight: "500" }}>{curr?.price}</h4>
                 </div>
@@ -57,7 +57,7 @@ export default async function Home() {
           </div>
         </div>
       </div>
-    </NavLayout >
+    </StateProviderLayout >
 
   )
 }

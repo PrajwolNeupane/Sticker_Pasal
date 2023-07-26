@@ -2,7 +2,7 @@ import { DetailProductType, ProductsType } from "@/app/const/interface";
 import Image from "next/image";
 import Link from "next/link";
 import AddToCart from "./SelectQuantity";
-import NavLayout from "@/app/components/NavLayout";
+import StateProviderLayout from "@/LayOut/StateProviderLayout";
 
 interface PageProps {
     params: {
@@ -41,7 +41,7 @@ export default async function Page({ params }: PageProps) {
     }
 
     return (
-        <NavLayout>
+        <StateProviderLayout>
             <div className="bg-light-subtle d-flex flex-column gap-1" style={{ padding: "20px 10%", width: "100%", minHeight: "88vh" }}>
                 <div className="d-flex gap-4">
                     <Image alt={productData.product.name} src={productData.product.image} width={'100'} height={'100'} />
@@ -80,6 +80,6 @@ export default async function Page({ params }: PageProps) {
                     }
                 </div>
             </div>
-        </NavLayout>
+        </StateProviderLayout>
     )
 }

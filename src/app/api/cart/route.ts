@@ -5,9 +5,31 @@ import { NextRequest, NextResponse } from "next/server";
 
 connect();
 
-// export async function GET(request) {
-  
-// }
+export async function GET(request: NextRequest) {
+  try {
+    var ownerId = getDataFromToken(request);
+    if (ownerId) {
+      var cart = await Cart.findOne({ ownerId: ownerId });
+      if (cart) {
+        return NextResponse.json({
+          message: "Cart Data Retrivied",
+          success: true,
+          ownerId: ownerId,
+          cartItems: cart,
+        });
+      } else {
+        return NextResponse.json({
+          message: "Cart Data Retrivied",
+          success: true,
+          ownerId: ownerId,
+          cartItems: [],
+        });
+      }
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -26,7 +48,6 @@ export async function POST(request: NextRequest) {
       ownerId: ownerId,
       cartItems: cartItems,
     });
-
   } catch (e) {
     console.log(e);
   }

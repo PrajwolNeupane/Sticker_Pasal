@@ -1,5 +1,5 @@
+import StateProviderLayout from "@/LayOut/StateProviderLayout";
 import AddToCart from "@/app/components/AddToCart";
-import NavLayout from "@/app/components/NavLayout";
 import { CategoriesType, ProductsType } from "@/app/const/interface";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,7 +36,7 @@ export default async function Page({ params, searchParams }: PageProps) {
     const categoryProducts: Array<ProductsType> = await getCategoryProducts(params.id, page);
 
     return (
-        <NavLayout>
+        <StateProviderLayout>
             <div className="w-100 px-5 bg-body-tertiary">
                 <div className="bg-dark-subtle w-100 py-5 px-5 d-flex justify-content-between align-items-end" style={{ height: "150px" }}>
                     <h1 className="fs-2 text-dark" style={{ fontWeight: "700" }}>CATEGORY</h1>
@@ -59,7 +59,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                                 categoryProducts?.map((curr: ProductsType, indx: number) => (
                                     <div className="d-flex flex-column align-items-center bg-body-secondary p-2 mt-4" key={indx}>
                                         <Link href={`${curr?.id}`} className="text-decoration-none"> <Image alt={curr?.name} width={'200'} height={'200'} src={curr?.image} /></Link>
-                                        <AddToCart id={curr?.id} />
+                                        <AddToCart product={curr} />
                                         <Link href={`${curr?.id}`} className="text-decoration-none"><h2 className="fs-6 text-dark lh-1" style={{ fontWeight: "700" }}>{curr?.name}</h2> </Link>
                                         <h4 className="fs-6 text-secondary lh-1" style={{ fontWeight: "500" }}>{curr?.price}</h4>
                                     </div>
@@ -84,6 +84,6 @@ export default async function Page({ params, searchParams }: PageProps) {
                     </div>
                 </div>
             </div>
-        </NavLayout>
+        </StateProviderLayout>
     )
 }

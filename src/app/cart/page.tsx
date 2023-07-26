@@ -1,9 +1,10 @@
-import NavLayout from "../components/NavBar/NavLayout";
+import StateProviderLayout from "@/LayOut/StateProviderLayout";
 
-export default function Page(){
+
+export default function Page() {
     return (
-        <NavLayout>
+        <StateProviderLayout>
             <h2>Hi</h2>
-        </NavLayout>
+        </StateProviderLayout>
     )
 }
