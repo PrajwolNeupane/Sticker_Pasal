@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import User from "@/models/userModel";
+import { getDataFromToken } from "@/helper/getDataFromToken";
 
 export async function GET(request: NextRequest) {
   try {
-    var token = request.cookies.get("token")?.value || "";
-    const decodedToken: any = jwt.verify(token, process.env.TOEKN_SECRET!);
-    var user = await User.findById({ _id: decodedToken.id }).select(
+   const id =  getDataFromToken(request);
+    var user = await User.findById({ _id:id }).select(
       ["-password","-__v"]
     );
 

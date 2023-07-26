@@ -11,12 +11,10 @@ interface AddToCartProps {
 const AddToCart: React.FC<AddToCartProps> = ({ product }) => {
 
   const dispatch = useAppDispatch();
-  const {auth} = useAppSelector((state) => state.auth);
 
   const addToCart = async() => {
     try {
       const response = await axios.post("http://localhost:3000/api/cart",{
-        ownerId:auth?.id,
         cartItems:[{...product}]
       });
       alert('Added to Cart');
