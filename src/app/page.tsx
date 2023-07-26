@@ -3,7 +3,7 @@ import { CategoriesType, ProductsType } from "./const/interface";
 import Header from "./components/Header/Header";
 import Image from "next/image";
 import AddToCart from "./components/AddToCart";
-import NavLayout from "./components/NavLayout";
+import NavLayout from "./components/NavBar/NavLayout";
 
 export async function getCategoryData() {
   try {

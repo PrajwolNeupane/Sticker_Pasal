@@ -1,4 +1,4 @@
-import NavLayout from "../components/NavLayout";
+import NavLayout from "../components/NavBar/NavLayout";
 
 export default function Page(){
     return (
