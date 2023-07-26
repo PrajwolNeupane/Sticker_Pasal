@@ -9,7 +9,8 @@ export async function POST(request: NextRequest) {
     const reqBody = await request.json();
     const { ownerId, cartItems } = reqBody;
     var cart = await Cart.findOne({ ownerId: ownerId });
-    if (cart.length == 0) {
+    console.log(cart);
+    if (!cart) {
       cart = new Cart({ ownerId: ownerId, cartItems: cartItems });
     }
 

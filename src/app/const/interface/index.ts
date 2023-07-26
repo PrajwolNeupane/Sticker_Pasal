@@ -31,3 +31,10 @@ export interface CategoriesType {
   image: string;
 }
 
+export interface UserType{
+  name:string,
+  email:string,
+  phoneNumber:string,
+  _id:string
+}
+

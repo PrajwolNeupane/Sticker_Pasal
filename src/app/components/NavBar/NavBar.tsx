@@ -1,7 +1,7 @@
 import Link from "next/link";
 import LogOutButton from "../LogOutButton";
 import { useAppDispatch, useAppSelector } from "@/app/store";
-import { setToken } from "./Features/authSlice";
+import { setAuth } from "./Features/authSlice";
 import axios from "axios";
 import { useEffect } from 'react';
 
@@ -9,19 +9,19 @@ import { useEffect } from 'react';
 export default function NavBar() {
 
   const dispatch = useAppDispatch();
-  const {token} = useAppSelector((state) => state.auth);
+  const {auth} = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    async function getToken() {
+    async function getAuth() {
       try {
-        const response = await axios.get("http://localhost:3000/api/user/token");
-        dispatch(setToken(response.data.token));
+        const response = await axios.get("http://localhost:3000/api/user/me");
+        dispatch(setAuth(response.data.user));
       } catch (e) {
         console.log(e);
-        dispatch(setToken(''));
+        dispatch(setAuth(null));
       }
     }
-    getToken();
+    getAuth();
   }, []);
 
 
@@ -33,7 +33,7 @@ export default function NavBar() {
           Home
         </Link>
         {
-          token !== '' ? <LogOutButton /> : <Link href={"/login"} className="fs-5 fw-normal navbar-brand text-dark">
+          auth !== null ? <LogOutButton /> : <Link href={"/login"} className="fs-5 fw-normal navbar-brand text-dark">
             Log in
           </Link>
         }

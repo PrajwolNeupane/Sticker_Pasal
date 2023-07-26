@@ -1,18 +1,25 @@
 "use client"
 import { setCart } from "../cart/Features/cartSlice";
 import { ProductsType } from "../const/interface";
-import { useAppDispatch } from "../store";
+import { useAppDispatch, useAppSelector } from "../store";
+import axios from "axios";
 
 interface AddToCartProps {
-  product:ProductsType
+  product: ProductsType
 }
 
 const AddToCart: React.FC<AddToCartProps> = ({ product }) => {
 
   const dispatch = useAppDispatch();
+  const {auth} = useAppSelector((state) => state.auth);
 
-  const addToCart = () => {
+  const addToCart = async() => {
     try {
+      const response = await axios.post("http://localhost:3000/api/cart",{
+        ownerId:auth?.id,
+        cartItems:[{...product}]
+      });
+      alert('Added to Cart');
       dispatch(setCart(product));
     } catch (e) {
       console.log(e);

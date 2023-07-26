@@ -1,21 +1,22 @@
+import { UserType } from '@/app/const/interface';
 import { createSlice,PayloadAction } from '@reduxjs/toolkit';
 
 type InitialState = {
-    token:String | null
+    auth:UserType | null;
 }
 
 const initialState:InitialState = {
-    token: null 
+    auth:null
 }
 const AuthSlice = createSlice({
     name:"Auth",
     initialState,
     reducers:{
-        setToken:(state,action: PayloadAction<string>) => {
-            state.token = action.payload;
+        setAuth:(state,action:PayloadAction<UserType | null>) => {
+            state.auth = action.payload
         }
     }, 
 });
 
 export default AuthSlice.reducer;
-export const {setToken} = AuthSlice.actions; 
+export const {setAuth} = AuthSlice.actions; 

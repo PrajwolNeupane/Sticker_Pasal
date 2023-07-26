@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "../store";
-import { setToken } from "./NavBar/Features/authSlice";
+import { setAuth } from "./NavBar/Features/authSlice";
 
 export default function LogOutButton() {
 
@@ -12,7 +12,7 @@ export default function LogOutButton() {
     const logOut = async () => {
         try {
             const response = await axios.get("http://localhost:3000/api/user/logout");
-            dispatch(setToken(""));
+            dispatch(setAuth(null));
             router.push("/")
         } catch (e) {
             console.log(e);
