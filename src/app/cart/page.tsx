@@ -15,7 +15,7 @@ export default function Page() {
                         HOME</Link> / CART</h1>
                 </div>
                 <h1 className="fs-4 fw-bolder text-dark">SHOPPING CART</h1>
-                <div className="d-flex gap-5">
+                <div className="d-flex gap-5 pb-5">
                     <div className="bg-dark-subtle p-4" style={{ width: "70%" }}>
                         <CartTable />
                     </div>
