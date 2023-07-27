@@ -1,6 +1,7 @@
 import StateProviderLayout from "@/LayOut/StateProviderLayout";
 import Link from "next/link";
 import CartTable from "./CartTable";
+import CartTotal from "./CartTotal";
 
 
 export default function Page() {
@@ -15,11 +16,10 @@ export default function Page() {
                 </div>
                 <h1 className="fs-4 fw-bolder text-dark">SHOPPING CART</h1>
                 <div className="d-flex gap-5">
-                    <div className="bg-dark-subtle p-4" style={{ height: "200px", width: "70%" }}>
+                    <div className="bg-dark-subtle p-4" style={{ width: "70%" }}>
                         <CartTable />
                     </div>
-                    <div className="bg-dark-subtle" style={{ height: "300px", width: "30%" }}>
-                    </div>
+                    <CartTotal />
                 </div>
 
             </div>
