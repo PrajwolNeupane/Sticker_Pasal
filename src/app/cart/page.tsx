@@ -3,6 +3,7 @@ import Link from "next/link";
 import CartTable from "./CartTable";
 import CartTotal from "./CartTotal";
 
+//How
 
 export default function Page() {
 
