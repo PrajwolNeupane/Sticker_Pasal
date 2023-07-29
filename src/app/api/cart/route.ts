@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     } else {
       cart = await Cart.findOneAndUpdate(
         { ownerId: ownerId },
-        { $push: { cartItems: {...cartItems} } },
+        { $push: { cartItems: { ...cartItems } } },
         { returnOriginal: false }
       );
     }
@@ -56,5 +56,37 @@ export async function POST(request: NextRequest) {
     });
   } catch (e) {
     console.log(e);
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const id = request.nextUrl.searchParams.get("id");
+    var ownerId = getDataFromToken(request);
+    if (ownerId) {
+      var cart = await Cart.findOne({ ownerId: ownerId });
+      if (cart) {
+        cart = await Cart.findOneAndUpdate(
+          { ownerId: ownerId },
+          { $pull: { cartItems: { id: id } } },
+          { returnOriginal: false }
+        );
+      } else {
+        return NextResponse.json(
+          { message: "Cart is Empty" },
+          {
+            status: 500,
+          }
+        );
+      }
+    }
+  } catch (e: any) {
+    console.log(e);
+    return NextResponse.json(
+      { message: "Cannot Delete Cart", error: e.message },
+      {
+        status: 500,
+      }
+    );
   }
 }

@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "../store";
 import { deleteCart } from "./Features/cartSlice";
+import axios from "axios";
 
 export function getCartData() {
     const { cart } = useAppSelector((state) => state.cart);
@@ -13,8 +14,15 @@ export default function CartTable() {
     const cart = getCartData();
     const dispatch = useAppDispatch();
 
-    const deletCartAction = (id: string) => {
-        dispatch(deleteCart(id));
+    const deletCartAction = async (id: string) => {
+        try {
+            const response = await axios.delete("http://localhost:3000/api/cart",{
+                params: { id: id }
+              });
+            dispatch(deleteCart(id));
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     return (
