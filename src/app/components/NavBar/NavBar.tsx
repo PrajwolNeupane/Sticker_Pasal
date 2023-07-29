@@ -29,7 +29,7 @@ export default function NavBar() {
 
   return (
     <>
-      <nav className="navbar sticky-top px-5 py-3 bg-body-secondary">
+      <nav className="navbar sticky-top px-5 py-3 bg-body-secondary " style={{zIndex:2}}>
         <h1 className="fs-3 text-dark" style={{ fontWeight: 700 }}>Sticker Nepal</h1>
         <div className="d-flex gap-5">
           <Link href={"/"} className="fs-5 fw-normal navbar-brand text-dark">

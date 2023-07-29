@@ -16,9 +16,7 @@ export default function CartTable() {
 
     const deletCartAction = async (id: string) => {
         try {
-            const response = await axios.delete("http://localhost:3000/api/cart",{
-                params: { id: id }
-              });
+            const response = await axios.delete(`http://localhost:3000/api/cart?id=${id.toString()}`);
             dispatch(deleteCart(id));
         } catch (e) {
             console.log(e);
@@ -26,6 +24,7 @@ export default function CartTable() {
     }
 
     return (
+       <>
         <table className="w-100" style={{ borderSpacing: "0px 10px", borderCollapse: "separate" }}>
             <thead>
                 <tr>
@@ -55,5 +54,6 @@ export default function CartTable() {
                 }
             </tbody>
         </table>
+       </>
     )
 }

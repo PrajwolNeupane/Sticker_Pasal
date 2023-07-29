@@ -71,6 +71,8 @@ export async function DELETE(request: NextRequest) {
           { $pull: { cartItems: { id: id } } },
           { returnOriginal: false }
         );
+        return NextResponse.json(
+          { message: "Removed from Cart" });
       } else {
         return NextResponse.json(
           { message: "Cart is Empty" },
