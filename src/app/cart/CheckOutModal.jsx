@@ -29,7 +29,7 @@ const CheckOutModal = ({ open, setClose }) => {
         } else {
             document.documentElement.style.overflow = 'auto'
         }
-    }, [open]);
+    }, [open && auth]);
 
     const placeOrderAction = async () => {
         if (orderData.name == "") {

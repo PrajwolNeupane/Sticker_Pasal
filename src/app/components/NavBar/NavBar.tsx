@@ -24,7 +24,7 @@ export default function NavBar() {
       }
     }
     getAuth();
-  }, []);
+  });
 
 
   return (
