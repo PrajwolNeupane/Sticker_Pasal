@@ -13,7 +13,7 @@ export default function Page() {
 
     const logIn = async () => {
         try {
-            const reponse = await axios.post("http://localhost:3000/api/user/login", { ...logInData });
+            const reponse = await axios.post(`/api/user/login`, { ...logInData });
             router.push("/");
         } catch (e) {
             console.log(e);

@@ -15,7 +15,7 @@ export default function Page() {
 
     const signUp = async () => {
         try {
-            const response = await axios.post("http://localhost:3000/api/user/signup", { ...signUpData });
+            const response = await axios.post("/api/user/signup", { ...signUpData });
             router.push("/");
             toast.success('Successfully Login');
         } catch (e) {

@@ -4,6 +4,9 @@ const nextConfig = {
         domains:[
             "stickersnepal.com"
         ]
+    },
+    env:{
+        
     }
 }
 

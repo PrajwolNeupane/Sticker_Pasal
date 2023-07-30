@@ -7,7 +7,7 @@ import StateProviderLayout from "@/LayOut/StateProviderLayout";
 
 export async function getCategoryData() {
   try {
-    const response = await fetch("http://localhost:3000/api/stickers/categories/all")
+    const response = await fetch(`${process.env.DOMAIN}/api/stickers/categories/all`)
     return response.json();
   } catch (e) {
     console.log(e);
@@ -16,7 +16,7 @@ export async function getCategoryData() {
 
 export async function getProductsData() {
   try {
-    const response = await fetch("http://localhost:3000/api/stickers/products/all")
+    const response = await fetch(`${process.env.DOMAIN}/api/stickers/products/all`)
     return response.json();
   } catch (e) {
     console.log(e);
@@ -36,7 +36,7 @@ export default async function Home() {
           <h1 className="fs-4 fw-bolder text-dark">Categories</h1>
           {
             categoryData?.map((curr: CategoriesType, indx: number) => (
-              <Link href={`/category/${curr.name}?page=1`} className="fs-5 text-dark text-decoration-none">{curr?.name}</Link>
+              <Link key={indx} href={`/category/${curr.name}?page=1`} className="fs-5 text-dark text-decoration-none">{curr?.name}</Link>
             ))
           }
         </div>

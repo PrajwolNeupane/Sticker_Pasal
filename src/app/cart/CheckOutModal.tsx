@@ -56,7 +56,7 @@ const CheckOutModal: React.FC<CheckOutModalProps> = ({ open, setClose }) => {
             try {
                 // checkout.show({ amount: 2500 });
                 if (orderData.paymentMethod == "Cash on Delivery") {
-                    const response = await axios.post("http://localhost:3000/api/order", {
+                    const response = await axios.post("/api/order", {
                         ...orderData,
                         orderItems: cart
                     });

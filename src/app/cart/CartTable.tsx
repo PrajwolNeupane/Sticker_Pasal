@@ -12,7 +12,7 @@ export default function CartTable() {
 
     const deletCartAction = async (id: string) => {
         try {
-            const response = await axios.delete(`http://localhost:3000/api/cart?id=${id.toString()}`);
+            const response = await axios.delete(`/api/cart?id=${id.toString()}`);
             dispatch(deleteCart(id));
         } catch (e) {
             console.log(e);

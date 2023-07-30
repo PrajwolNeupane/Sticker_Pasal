@@ -16,7 +16,7 @@ export default function NavBar() {
   useEffect(() => {
     async function getAuth() {
       try {
-        const response = await axios.get("http://localhost:3000/api/user/me");
+        const response = await axios.get(`/api/user/me`);
         dispatch(setAuth(response.data.user));
       } catch (e) {
         console.log(e);
