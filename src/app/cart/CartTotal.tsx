@@ -5,6 +5,7 @@ import { useAppSelector } from "../store"
 import { useEffect, useState } from "react";
 import CheckOutModal from "./CheckOutModal";
 
+
 export default function CartTotal() {
 
     const [open,setOpen] = useState(false);

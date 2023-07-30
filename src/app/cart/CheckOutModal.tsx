@@ -3,6 +3,10 @@
 import { useState, useEffect } from "react";
 import { useAppSelector } from "../store";
 import { Toaster, toast } from "react-hot-toast";
+import KhaltiCheckout from "khalti-checkout-web";
+import config from './Features/KhaltiGatewayConfig';
+import axios from "axios";
+import OrderPlaced from "./OrderPlaced";
 
 interface CheckOutModalProps {
     open: boolean;
@@ -11,7 +15,12 @@ interface CheckOutModalProps {
 
 const CheckOutModal: React.FC<CheckOutModalProps> = ({ open, setClose }) => {
 
+    let checkout = new KhaltiCheckout(config);
+
     const { auth } = useAppSelector((state) => state.auth);
+    const { cart } = useAppSelector((state) => state.cart);
+    const [openOrder,setOpenOrder]  = useState(false);
+    const [orderId,setOrderId] = useState(null);
 
     const [orderData, setOrderData] = useState({ name: auth?.name, email: auth?.email, number: auth?.phoneNumber, address: "", paymentMethod: null });
 
@@ -37,7 +46,7 @@ const CheckOutModal: React.FC<CheckOutModalProps> = ({ open, setClose }) => {
         else if (orderData.number == "") {
             toast.error('Number is Required')
         }
-        else if(orderData.number?.length != 10){
+        else if (orderData.number?.length != 10) {
             toast.error('Number is not valid')
         }
         else if (orderData.paymentMethod == null) {
@@ -45,8 +54,19 @@ const CheckOutModal: React.FC<CheckOutModalProps> = ({ open, setClose }) => {
         }
         else {
             try {
-                console.log(orderData);
-                toast.success('Order has been placed')
+                // checkout.show({ amount: 2500 });
+                if (orderData.paymentMethod == "Cash on Delivery") {
+                    const response = await axios.post("http://localhost:3000/api/order", {
+                        ...orderData,
+                        orderItems: cart
+                    });
+                    console.log(response.data);
+                    setOpenOrder(true);
+                    setOrderId(response.data.order._id);
+                    toast.success('Order has been placed')
+                    setClose();
+                }
+
             } catch (e) {
                 console.log(e);
             }
@@ -54,6 +74,7 @@ const CheckOutModal: React.FC<CheckOutModalProps> = ({ open, setClose }) => {
     }
 
     return (
+       <>
         <div style={{ width: "100vw", height: "100vh", backgroundColor: 'rgb(68, 69, 68,0.7)', position: "fixed", top: '0px', left: "0px", zIndex: 999, display: `${open ? 'flex' : 'none'}` }} id="modal" onClick={(e: any) => {
             if (e.target.id == 'modal') {
                 setClose();
@@ -101,10 +122,15 @@ const CheckOutModal: React.FC<CheckOutModalProps> = ({ open, setClose }) => {
                     placeOrderAction();
                 }}>Place Order</button>
             </div>
-            <Toaster
-                position="bottom-right"
-            />
+          
         </div>
+          <Toaster
+          position="bottom-right"
+      />
+      <OrderPlaced open={openOrder} setClose={()=>{
+        setOpenOrder(false);
+      }} id={orderId!}/>
+      </>
     );
 };
 
