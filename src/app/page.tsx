@@ -4,24 +4,9 @@ import Header from "./components/Header/Header";
 import Image from "next/image";
 import AddToCart from "./components/AddToCart";
 import StateProviderLayout from "@/LayOut/StateProviderLayout";
+import { getCategoryData, getProductsData } from "./dataFetchingFunction";
 
-export async function getCategoryData() {
-  try {
-    const response = await fetch(`${process.env.DOMAIN}/api/stickers/categories/all`)
-    return response.json();
-  } catch (e) {
-    console.log(e);
-  }
-}
 
-export async function getProductsData() {
-  try {
-    const response = await fetch(`${process.env.DOMAIN}/api/stickers/products/all`)
-    return response.json();
-  } catch (e) {
-    console.log(e);
-  }
-}
 
 export default async function Home() {
 
