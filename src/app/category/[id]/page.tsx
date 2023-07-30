@@ -3,6 +3,7 @@ import AddToCart from "@/app/components/AddToCart";
 import { CategoriesType, ProductsType } from "@/app/const/interface";
 import Image from "next/image";
 import Link from "next/link";
+import { getCategoryData, getCategoryProducts } from "./dataFetchingFunctions";
 
 interface PageProps {
     params: {
@@ -10,22 +11,7 @@ interface PageProps {
     };
     searchParams: any
 }
-export async function getCategoryData() {
-    try {
-        const response = await fetch(`${process.env.DOMAIN}/api/stickers/categories/all`)
-        return response.json();
-    } catch (e) {
-        console.log(e);
-    }
-}
-export async function getCategoryProducts(id: string, page: string) {
-    try {
-        const response = await fetch(`${process.env.DOMAIN}/api/stickers/categories?id=${id}&page=${page}`)
-        return response.json();
-    } catch (e) {
-        console.log(e);
-    }
-}
+
 
 
 export default async function Page({ params, searchParams }: PageProps) {
