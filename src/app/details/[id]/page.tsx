@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AddToCart from "./SelectQuantity";
 import StateProviderLayout from "@/LayOut/StateProviderLayout";
+import { getProductData,getCategoryProducts } from "./dataFetchingFunctions";
 
 interface PageProps {
     params: {
@@ -11,24 +12,6 @@ interface PageProps {
 }
 interface Product {
     product: DetailProductType
-}
-
-export async function getProductData(id: string) {
-    try {
-        const response = await fetch(`${process.env.DOMAIN}/api/stickers/products?id=${id}`)
-        return response.json();
-    } catch (e) {
-        console.log(e);
-    }
-}
-
-export async function getCategoryProducts(id: string) {
-    try {
-        const response = await fetch(`${process.env.DOMAIN}/api/stickers/categories?id=${id}&page=1&limit=6`)
-        return response.json();
-    } catch (e) {
-        console.log(e);
-    }
 }
 
 export default async function Page({ params }: PageProps) {
