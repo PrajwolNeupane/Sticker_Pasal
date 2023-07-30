@@ -39,7 +39,7 @@ export default function Page() {
                 }}/>
                 <br />
                 <button className="mt-3 mb-2 bg-dark text-white px-4 py-1" style={{ fontWeight: "400", border: "none" }} type="submit">Log in</button>
-                <Link href={'/signup'} className="text-center text-primary text-decoration-none">Don't have an accout? Create here</Link>
+                <Link href={'/signup'} className="text-center text-primary text-decoration-none">Don&apos;t have an accout? Create here</Link>
             </form>
         </div>
     )

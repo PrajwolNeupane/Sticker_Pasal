@@ -51,7 +51,7 @@ export default async function Page({ params }: PageProps) {
                         <h2 className="fs-4 text-secondary" style={{ fontWeight: '400' }}>{productData.product.price}</h2>
                         {
                             productData.product.descripton.map((curr: string, indx: number) => (
-                                <div className="d-flex gap-2">
+                                <div className="d-flex gap-2" key={indx}>
                                     <span className="material-symbols-outlined text-dark">
                                         done
                                     </span>

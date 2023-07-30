@@ -4,14 +4,10 @@ import { useAppDispatch, useAppSelector } from "../store";
 import { deleteCart } from "./Features/cartSlice";
 import axios from "axios";
 
-export function getCartData() {
-    const { cart } = useAppSelector((state) => state.cart);
-    return cart;
-}
 
 export default function CartTable() {
 
-    const cart = getCartData();
+    const { cart } = useAppSelector((state) => state.cart);
     const dispatch = useAppDispatch();
 
     const deletCartAction = async (id: string) => {
