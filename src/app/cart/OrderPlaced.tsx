@@ -1,5 +1,6 @@
 "use client"
 import { useEffect } from "react";
+import { useRouter } from 'next/navigation'
 
 interface OrderPlacedProps {
     open: boolean;
@@ -8,6 +9,8 @@ interface OrderPlacedProps {
 }
 
 const OrderPlaced: React.FC<OrderPlacedProps> = ({ open, setClose,id}) => {
+
+    const router = useRouter()
 
     useEffect(() => {
        if(open){
@@ -21,6 +24,7 @@ const OrderPlaced: React.FC<OrderPlacedProps> = ({ open, setClose,id}) => {
         <div style={{ width: "100vw", height: "100vh", backgroundColor: 'rgb(68, 69, 68,0.7)', position: "fixed", top: '0px', left: "0px", zIndex: 999, display: `${open ? 'flex' : 'none'}` }} id="modal" onClick={(e: any) => {
             if (e.target.id == 'modal') {
                 setClose();
+                router.push('/')
             }
         }}>
             <div className="bg-light-subtle py-3 px-5 flex-column justify-content-between" style={{ display: `${open ? 'flex' : 'none'}`, width: "80vw", position: "absolute", height: "200px", top: "50%", left: "50%", transform: 'translate(-50%, -50%)', boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px" ,alignItems:"center"}}>
