@@ -46,7 +46,7 @@ export default function CartTotal() {
                         <td style={{ fontWeight: "500" }} className="fs-6 text-dark">{totalPrice.totalPriceWithDelivery}</td>
                     </tr>
                 </table>
-                <button className="bg-dark text-white px-4 py-1" style={{ margin: "10px auto", width: "200px", fontWeight: "400", border: "none" }} type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>{
+                <button className="bg-dark text-white px-4 py-1" style={{ margin: "10px auto", width: "200px", fontWeight: "400", border: "none" }} type="button" onClick={()=>{
                     setOpen(true)
                 }}>Proceed to Checkout</button>
                 <CheckOutModal open={open}  setClose={()=>{setOpen(false)}}/>

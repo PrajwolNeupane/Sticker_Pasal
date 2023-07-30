@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAppSelector } from "../store";
+import { Toaster, toast } from "react-hot-toast";
 
 interface CheckOutModalProps {
     open: boolean;
@@ -12,10 +13,10 @@ const CheckOutModal: React.FC<CheckOutModalProps> = ({ open, setClose }) => {
 
     const { auth } = useAppSelector((state) => state.auth);
 
-    const [orderData, setOrderData] = useState({ name: auth?.name, email: auth?.email, number: auth?.phoneNumber, address: "" });
+    const [orderData, setOrderData] = useState({ name: auth?.name, email: auth?.email, number: auth?.phoneNumber, address: "", paymentMethod: null });
 
     useEffect(() => {
-        setOrderData({ name: auth?.name, email: auth?.email, number: auth?.phoneNumber, address: "" })
+        setOrderData({ name: auth?.name, email: auth?.email, number: auth?.phoneNumber, address: "", paymentMethod: null })
         if (open) {
             document.documentElement.style.overflow = 'hidden'
         } else {
@@ -23,9 +24,38 @@ const CheckOutModal: React.FC<CheckOutModalProps> = ({ open, setClose }) => {
         }
     }, [open]);
 
+    const placeOrderAction = async () => {
+        if (orderData.name == "") {
+            toast.error('Name is Required')
+        }
+        else if (orderData.email == "") {
+            toast.error('Email is Required')
+        }
+        else if (orderData.address == "") {
+            toast.error('Address is Required')
+        }
+        else if (orderData.number == "") {
+            toast.error('Number is Required')
+        }
+        else if(orderData.number?.length != 10){
+            toast.error('Number is not valid')
+        }
+        else if (orderData.paymentMethod == null) {
+            toast.error('Payment Method is Required')
+        }
+        else {
+            try {
+                console.log(orderData);
+                toast.success('Order has been placed')
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    }
+
     return (
-        <div style={{width:"100vw",height:"100vh",backgroundColor:'rgb(68, 69, 68,0.7)',position:"fixed",top:'0px',left:"0px",zIndex:999, display: `${open ? 'flex' : 'none'}`}} id="modal" onClick={(e:any)=>{
-            if(e.target.id == 'modal'){
+        <div style={{ width: "100vw", height: "100vh", backgroundColor: 'rgb(68, 69, 68,0.7)', position: "fixed", top: '0px', left: "0px", zIndex: 999, display: `${open ? 'flex' : 'none'}` }} id="modal" onClick={(e: any) => {
+            if (e.target.id == 'modal') {
                 setClose();
             }
         }}>
@@ -38,32 +68,42 @@ const CheckOutModal: React.FC<CheckOutModalProps> = ({ open, setClose }) => {
                         close
                     </span>
                 </div>
-                <label>Name</label>
+                <label>Name*</label>
                 <input placeholder="Joe Doe" value={orderData.name} name="name" onChange={
                     (e) => { setOrderData({ ...orderData, [e.target.name]: e.target.value }) }
                 } />
-                <label>Email</label>
+                <label>Email*</label>
                 <input placeholder="joedoe@gmail.com" value={orderData.email} name="email" onChange={
                     (e) => { setOrderData({ ...orderData, [e.target.name]: e.target.value }) }
                 } />
-                <label>Phone Number</label>
+                <label>Phone Number*</label>
                 <input placeholder="123456789" value={orderData.number} name="number" onChange={
                     (e) => { setOrderData({ ...orderData, [e.target.name]: e.target.value }) }
                 } />
-                <label>Address</label>
-                <input placeholder="Hi" value={orderData.number} name="address" onChange={
+                <label>Address*</label>
+                <input placeholder="Location" value={orderData.address} name="address" onChange={
                     (e) => { setOrderData({ ...orderData, [e.target.name]: e.target.value }) }
                 } />
-                <label>Payement Method</label>
-                <label>
-                    <input type="radio" name="option" value="option1" />
-                    Khalti</label>
-                <br />
-                <label>
-                    <input type="radio" name="option" value="option2" />
-                    Cash on Delivery
-                </label>
+                <label>Payement Method*</label>
+                <div className="d-flex justify-content-between" style={{ width: "25%" }}>
+                    <label>
+                        <input type="radio" name="paymentMethod" value="Khalti" onChange={(e) => {
+                            setOrderData({ ...orderData, [e.target.name]: e.target.value });
+                        }} />Khalti</label>
+                    <label>
+                        <input type="radio" name="paymentMethod" value="Cash on Delivery" onChange={(e) => {
+                            setOrderData({ ...orderData, [e.target.name]: e.target.value });
+                        }} />
+                        Cash on Delivery
+                    </label>
+                </div>
+                <button className="bg-dark text-white px-4 py-2" style={{ margin: "10px auto", width: "300px", fontWeight: "600", border: "none" }} onClick={() => {
+                    placeOrderAction();
+                }}>Place Order</button>
             </div>
+            <Toaster
+                position="bottom-right"
+            />
         </div>
     );
 };
