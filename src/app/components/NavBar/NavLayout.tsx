@@ -16,7 +16,7 @@ export default function NavLayout({ children }: any) {
 
         const getCartData = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/cart");
+                const response = await axios.get(`/api/cart`);
                 dispatch(setCart(response.data.cartItems.cartItems));
             } catch (e) {
                 console.log(e);

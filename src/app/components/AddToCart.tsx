@@ -1,7 +1,7 @@
 "use client"
 import { addCart } from "../cart/Features/cartSlice";
 import { ProductsType } from "../const/interface";
-import { useAppDispatch, useAppSelector } from "../store";
+import { useAppDispatch } from "../store";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 
@@ -15,7 +15,7 @@ const AddToCart: React.FC<AddToCartProps> = ({ product }) => {
 
   const addToCart = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/cart", {
+      const response = await axios.post(`/api/cart`, {
         cartItems: { ...product }
       });
       toast.success('Product added into Cart')
